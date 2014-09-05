@@ -37,7 +37,8 @@ class GTour_Embed_Front
     public function shortcode( $atts, $content = null ) {
         // fetch our attributes
         extract( shortcode_atts( array(
-            'file'      => ''
+            'file'  => '',
+            'title' => ''
         ), $atts ) );
         // bail without a file
         if ( empty( $file ) ) {
@@ -60,10 +61,14 @@ class GTour_Embed_Front
         // handle my markup
         $display    = '';
         $display    .= '<div class="gtour-embed-wrapper">';
+        // our optional title
+        if ( ! empty( $title ) ) {
+            $display    .= '<h4 class="gtour-embed-title">' . esc_attr( $title ) . '</h4>';
+        }
         // the display portion to be loaded via JS
         $display    .= '<div id="gtour-embed" class="gtour-embed-display"></div>';
         // the control buttons
-        $display    .= self::get_control_buttons();
+        $display    .= self::get_control_button_display();
         // close up the markup
         $display    .= '</div>';
         // send it back
@@ -74,11 +79,11 @@ class GTour_Embed_Front
      * get the control button configuration for
      * the embedded tour
      *
-     * @return [array]  $buttons        the buttons to display
+     * @return [array]  $buttons        the array of data for the buttons
      */
-    static function get_control_buttons() {
+    static function get_control_button_actions() {
         // set an array for the buttons
-        $actions  = array(
+        $buttons  = array(
             array(
                 'class' => 'gtour-embed-enter',
                 'click' => 'enterTour()',
@@ -106,13 +111,26 @@ class GTour_Embed_Front
             ),
         );
         // optional filter
-        $actions    = apply_filters( 'gtour_embed_button_actions', $actions );
+        $buttons    = apply_filters( 'gtour_embed_button_actions', $actions );
         // filter them
-        $actions    = array_filter( $actions );
+        $buttons    = array_filter( $actions );
         // bail if no buttons
-        if ( empty( $actions ) ) {
+        if ( empty( $buttons ) ) {
             return;
         }
+        // return it
+        return $buttons;
+    }
+
+    /**
+     * get the markup for the control buttons in the
+     * the embedded tour
+     *
+     * @return [html]  $buttons        the buttons to display
+     */
+    static function get_control_button_display() {
+        // fetch the actions
+        $actions    = self::get_control_button_actions();
         // start markup
         $buttons    = '';
         $buttons    .= '<div class="gtour-embed-controls">';
@@ -126,6 +144,12 @@ class GTour_Embed_Front
         // close up
         $buttons    .= '</ul>';
         $buttons    .= '</div>';
+        // filter
+        $buttons    = apply_filters( 'gtour_embed_button_display', $buttons );
+        // bail if no buttons
+        if ( empty( $buttons ) ) {
+            return;
+        }
         // return them
         return $buttons;
     }
