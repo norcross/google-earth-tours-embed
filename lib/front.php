@@ -37,8 +37,10 @@ class GTour_Embed_Front
     public function shortcode( $atts, $content = null ) {
         // fetch our attributes
         extract( shortcode_atts( array(
-            'file'  => '',
-            'title' => ''
+            'file'      => '',
+            'title'     => '',
+            'height'    => '',
+            'width'     => ''
         ), $atts ) );
         // bail without a file
         if ( empty( $file ) ) {
@@ -65,8 +67,22 @@ class GTour_Embed_Front
         if ( ! empty( $title ) ) {
             $display    .= '<h4 class="gtour-embed-title">' . esc_attr( $title ) . '</h4>';
         }
+        // check for width and / or height
+        $style  = '';
+        if ( ! empty( $height ) || ! empty( $width ) ) {
+            $style  .= ' style="';
+            // height check
+            if ( ! empty( $height ) ) {
+                $style  .= 'height:' . esc_attr( $height ). ';';
+            }
+            // width check
+            if ( ! empty( $width ) ) {
+                $style  .= 'width:' . esc_attr( $width ). ';';
+            }
+            $style  .= '"';
+        }
         // the display portion to be loaded via JS
-        $display    .= '<div id="gtour-embed" class="gtour-embed-display"></div>';
+        $display    .= '<div id="gtour-embed" class="gtour-embed-display"' . $style . '></div>';
         // the control buttons
         $display    .= self::get_control_button_display();
         // close up the markup
@@ -111,9 +127,9 @@ class GTour_Embed_Front
             ),
         );
         // optional filter
-        $buttons    = apply_filters( 'gtour_embed_button_actions', $actions );
+        $buttons    = apply_filters( 'gtour_embed_button_actions', $buttons );
         // filter them
-        $buttons    = array_filter( $actions );
+        $buttons    = array_filter( $buttons );
         // bail if no buttons
         if ( empty( $buttons ) ) {
             return;

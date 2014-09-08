@@ -32,18 +32,18 @@ if( ! defined( 'RKV_GETE_VER' ) ) {
     define( 'RKV_GETE_VER', '0.0.1' );
 }
 
-class GoogleEarth_Tour_Embed
+class GTour_Embed_Core
 {
     /**
      * Static property to hold our singleton instance
-     * @var CitationPro
+     * @var GTour_Embed_Core
      */
     static $instance = false;
 
     /**
      * This is our constructor
      *
-     * @return GoogleEarth_Tour_Embed
+     * @return GTour_Embed_Core
      */
     private function __construct() {
         add_action( 'plugins_loaded',       array(  $this,  'textdomain'            )           );
@@ -57,29 +57,26 @@ class GoogleEarth_Tour_Embed
      * @return $instance
      */
     public static function getInstance() {
-
-        if ( !self::$instance ) {
+        // set the instance if one does not exist
+        if ( ! self::$instance ) {
             self::$instance = new self;
         }
-
+        // return the instance
         return self::$instance;
     }
 
     /**
      * load textdomain
      *
-     * @return string load_plugin_textdomain
+     * @return string
      */
-
     public function textdomain() {
-
         load_plugin_textdomain( 'google-earth-tour-embed', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
     }
 
     /**
      * load our secondary files
-     * @return [type] [description]
+     * @return null
      */
     public function load_files() {
         require_once( 'lib/admin.php' );
@@ -90,4 +87,4 @@ class GoogleEarth_Tour_Embed
 }
 
 // Instantiate our class
-$GoogleEarth_Tour_Embed = GoogleEarth_Tour_Embed::getInstance();
+$GTour_Embed_Core = GTour_Embed_Core::getInstance();
