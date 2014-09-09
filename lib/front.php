@@ -60,9 +60,11 @@ class GTour_Embed_Front
                 'notfound'  => __( 'No tour found!', 'google-earth-tour-embed' ),
             )
         );
+        // setup for container width
+        $wrap   = ! empty( $width ) ? ' style="width:' . self::sanitize_numeric( $width ). 'px;"' : '';
         // handle my markup
         $display    = '';
-        $display    .= '<div class="gtour-embed-wrapper">';
+        $display    .= '<div class="gtour-embed-wrapper"' . $wrap . '>';
         // our optional title
         if ( ! empty( $title ) ) {
             $display    .= '<h4 class="gtour-embed-title">' . esc_attr( $title ) . '</h4>';
@@ -73,11 +75,11 @@ class GTour_Embed_Front
             $style  .= ' style="';
             // height check
             if ( ! empty( $height ) ) {
-                $style  .= 'height:' . esc_attr( $height ). ';';
+                $style  .= 'height:' . self::sanitize_numeric( $height ). 'px;';
             }
             // width check
             if ( ! empty( $width ) ) {
-                $style  .= 'width:' . esc_attr( $width ). ';';
+                $style  .= 'width:' . self::sanitize_numeric( $width ). 'px;';
             }
             $style  .= '"';
         }
@@ -168,6 +170,15 @@ class GTour_Embed_Front
         }
         // return them
         return $buttons;
+    }
+
+    /**
+     * strip all non-numeric values from a string
+     * @param string $number
+     * @return int
+     */
+    static function sanitize_numeric( $number ) {
+        return preg_replace( '/\D/', '', $number );
     }
 
 /// end class

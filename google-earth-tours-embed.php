@@ -4,7 +4,7 @@ Plugin Name: Google Earth Tours Embed
 Plugin URI: http://andrewnorcross.com/plugins/
 Description: A tool for embedding a Google Earth Tour with a shortcode.
 Author: Andrew Norcross
-Version: 0.0.1
+Version: 0.0.2
 Requires at least: 3.8
 Author URI: http://andrewnorcross.com
 */
@@ -29,7 +29,7 @@ if( ! defined( 'RKV_GETE_BASE' ) ) {
 }
 
 if( ! defined( 'RKV_GETE_VER' ) ) {
-    define( 'RKV_GETE_VER', '0.0.1' );
+    define( 'RKV_GETE_VER', '0.0.2' );
 }
 
 class GTour_Embed_Core
