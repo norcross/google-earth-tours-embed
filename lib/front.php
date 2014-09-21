@@ -102,27 +102,27 @@ class GTour_Embed_Front
     static function get_control_button_actions() {
         // set an array for the buttons
         $buttons  = array(
-            array(
+            'enter' => array(
                 'class' => 'gtour-embed-enter',
                 'click' => 'enterTour()',
                 'text'  => __( 'Enter Tour', 'google-earth-tour-embed' )
             ),
-            array(
+            'play' => array(
                 'class' => 'gtour-embed-play',
                 'click' => 'playTour()',
                 'text'  => __( 'Play Tour', 'google-earth-tour-embed' )
             ),
-            array(
+            'pause' => array(
                 'class' => 'gtour-embed-pause',
                 'click' => 'pauseTour()',
                 'text'  => __( 'Pause Tour', 'google-earth-tour-embed' )
             ),
-            array(
+            'reset' => array(
                 'class' => 'gtour-embed-reset',
                 'click' => 'resetTour()',
                 'text'  => __( 'Reset Tour', 'google-earth-tour-embed' )
             ),
-            array(
+            'exit' => array(
                 'class' => 'gtour-embed-exit',
                 'click' => 'exitTour()',
                 'text'  => __( 'Exit Tour', 'google-earth-tour-embed' )

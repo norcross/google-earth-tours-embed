@@ -23,3 +23,9 @@ Allow for embedding of Google Earth Tour kmz files via shortcode
 ```
 [gearthtour file="YOUR-FILE-NAME.kmz" title="My Optional Title"]
 ```
+
+## Available Filters
+
+`gtour_embed_button_actions`
+`gtour_embed_button_display`
+`gtour_embed_enable_css`
